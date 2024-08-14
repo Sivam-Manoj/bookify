@@ -3,7 +3,12 @@ import express from "express";
 import mongoose from "mongoose";
 import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
-import path from "path"
+import path from "path";
+import { fileURLToPath } from 'url';
+
+// Simulate __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const port = process.env.PORT || 5555;
 const app = express();
@@ -32,9 +37,8 @@ const ConnectMongoDb = async () => {
     });
   } catch (error) {
     console.error("Failed to connect to MongoDB", error);
-    process.exit(1); 
+    process.exit(1);
   }
 };
-
 
 ConnectMongoDb();
