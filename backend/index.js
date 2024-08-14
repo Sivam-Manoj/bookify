@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
+const cors = require("cors");
+const path = require("path");
 
 const port = process.env.PORT || 5555;
 
