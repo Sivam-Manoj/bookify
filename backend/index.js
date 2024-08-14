@@ -3,11 +3,9 @@ import express from "express";
 import mongoose from "mongoose";
 import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
-const cors = require("cors");
-const path = require("path");
+import path from "path"
 
 const port = process.env.PORT || 5555;
-
 const app = express();
 
 app.use(express.json());
@@ -24,14 +22,19 @@ if (process.env.NODE_ENV === "production") {
 
 const ConnectMongoDb = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL);
-    console.log("database connected succesfuly");
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Database connected successfully");
     app.listen(port, () => {
-      console.log(`server running on ${port}`);
+      console.log(`Server running on port ${port}`);
     });
   } catch (error) {
-    console.log(error);
+    console.error("Failed to connect to MongoDB", error);
+    process.exit(1); 
   }
 };
+
 
 ConnectMongoDb();
