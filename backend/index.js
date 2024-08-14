@@ -13,18 +13,16 @@ app.use(cors());
 
 app.use("/books", booksRoute);
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("App connected to database");
-  })
-  .catch((error) => {
+const ConnectMongoDb = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("database connected succesfuly");
+    app.listen(port, () => {
+      console.log(`server running on ${port}`);
+    });
+  } catch (error) {
     console.log(error);
-  });
+  }
+};
 
-app.listen(port, () => {
-  console.log(`Server running successfully on port ${port}`);
-});
+ConnectMongoDb();
